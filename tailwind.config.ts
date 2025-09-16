@@ -47,6 +47,12 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // CampusCare Custom Colors
+        plum: "hsl(var(--plum))",
+        "deep-purple": "hsl(var(--deep-purple))",
+        lilac: "hsl(var(--lilac))",
+        "pale-pink": "hsl(var(--pale-pink))",
+        "dusty-rose": "hsl(var(--dusty-rose))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
