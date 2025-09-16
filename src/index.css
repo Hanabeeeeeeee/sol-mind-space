@@ -18,21 +18,21 @@ All colors MUST be HSL.
     --popover: 330 50% 98%;
     --popover-foreground: 290 30% 15%;
 
-    /* Primary: Pinky Lavender - More pink leaning */
-    --primary: 315 45% 60%;
-    --primary-foreground: 330 40% 98%;
+    /* Primary: Strong Pink Lavender #E099BC */
+    --primary: 340 55% 73%;
+    --primary-foreground: 340 60% 98%;
     
-    /* Secondary: Pink Lilac - Stronger pink */
-    --secondary: 325 50% 78%;
-    --secondary-foreground: 295 40% 25%;
+    /* Secondary: Soft Pink Lilac #F5D1E2 */
+    --secondary: 335 70% 90%;
+    --secondary-foreground: 320 40% 30%;
 
-    /* Muted: Soft Pink - More saturated */
-    --muted: 335 60% 92%;
-    --muted-foreground: 315 30% 45%;
+    /* Muted: Very Pale Pink */
+    --muted: 340 65% 95%;
+    --muted-foreground: 325 35% 50%;
 
-    /* Accent: Rose Pink - Warmer pink */
-    --accent: 345 55% 78%;
-    --accent-foreground: 295 40% 20%;
+    /* Accent: Deep Rose Pink #D4A6C5 */
+    --accent: 320 40% 75%;
+    --accent-foreground: 320 50% 25%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 330 40% 98%;
@@ -43,12 +43,12 @@ All colors MUST be HSL.
 
     --radius: 1rem;
     
-    /* CampusCare Custom Colors - More Pink Balanced */
-    --plum: 295 35% 55%;
-    --deep-purple: 310 50% 25%;
-    --lilac: 325 50% 78%;
-    --pale-pink: 335 60% 92%;
-    --dusty-rose: 345 55% 78%;
+    /* CampusCare Custom Colors - Pink Focused #D4A6C5, #E099BC, #F5D1E2 */
+    --plum: 315 30% 60%; /* #926D97 */
+    --deep-purple: 295 45% 30%; /* #461C4C */
+    --lilac: 320 40% 75%; /* #D4A6C5 */
+    --pale-pink: 335 70% 90%; /* #F5D1E2 */
+    --dusty-rose: 340 55% 73%; /* #E099BC */
     
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));

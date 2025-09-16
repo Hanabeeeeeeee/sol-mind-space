@@ -247,27 +247,7 @@ const BookAppointment = () => {
                   </CardContent>
                 </Card>
                 
-                {/* Map Placeholder */}
-                <Card className="glass-card">
-                  <CardHeader>
-                    <CardTitle>Nearby Locations</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="h-64 bg-muted/50 rounded-lg flex items-center justify-center">
-                      <div className="text-center">
-                        <MapPin className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
-                        <p className="text-muted-foreground">Interactive map coming soon</p>
-                        <p className="text-sm text-muted-foreground">
-                          View therapist locations and plan your visit
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-              
-              {/* Booking Form */}
-              <div>
+                {/* Booking Form - Moved from right column */}
                 <Card className="glass-card">
                   <CardHeader>
                     <CardTitle className="flex items-center space-x-2">
@@ -399,6 +379,26 @@ const BookAppointment = () => {
                         </div>
                       </div>
                     </form>
+                  </CardContent>
+                </Card>
+              </div>
+              
+              {/* Map Placeholder - Moved from left column */}
+              <div>
+                <Card className="glass-card">
+                  <CardHeader>
+                    <CardTitle>Nearby Locations</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="h-64 bg-muted/50 rounded-lg flex items-center justify-center">
+                      <div className="text-center">
+                        <MapPin className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
+                        <p className="text-muted-foreground">Interactive map coming soon</p>
+                        <p className="text-sm text-muted-foreground">
+                          View therapist locations and plan your visit
+                        </p>
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
               </div>
