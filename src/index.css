@@ -18,21 +18,21 @@ All colors MUST be HSL.
     --popover: 330 50% 98%;
     --popover-foreground: 290 30% 15%;
 
-    /* Primary: Lavender #9F61B0 */
-    --primary: 290 35% 55%;
+    /* Primary: Pinky Lavender - More pink leaning */
+    --primary: 315 45% 60%;
     --primary-foreground: 330 40% 98%;
     
-    /* Secondary: Lilac #D4A6C5 */
-    --secondary: 320 35% 75%;
-    --secondary-foreground: 290 40% 25%;
+    /* Secondary: Pink Lilac - Stronger pink */
+    --secondary: 325 50% 78%;
+    --secondary-foreground: 295 40% 25%;
 
-    /* Muted: Pale Pink #F5D1E2 */
-    --muted: 330 50% 90%;
-    --muted-foreground: 290 25% 45%;
+    /* Muted: Soft Pink - More saturated */
+    --muted: 335 60% 92%;
+    --muted-foreground: 315 30% 45%;
 
-    /* Accent: Dusty Rose #E099BC */
-    --accent: 340 45% 75%;
-    --accent-foreground: 290 40% 20%;
+    /* Accent: Rose Pink - Warmer pink */
+    --accent: 345 55% 78%;
+    --accent-foreground: 295 40% 20%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 330 40% 98%;
@@ -43,12 +43,12 @@ All colors MUST be HSL.
 
     --radius: 1rem;
     
-    /* CampusCare Custom Colors */
-    --plum: 280 28% 50%;
-    --deep-purple: 290 45% 20%;
-    --lilac: 320 35% 75%;
-    --pale-pink: 330 50% 90%;
-    --dusty-rose: 340 45% 75%;
+    /* CampusCare Custom Colors - More Pink Balanced */
+    --plum: 295 35% 55%;
+    --deep-purple: 310 50% 25%;
+    --lilac: 325 50% 78%;
+    --pale-pink: 335 60% 92%;
+    --dusty-rose: 345 55% 78%;
     
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));

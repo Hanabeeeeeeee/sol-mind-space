@@ -21,6 +21,7 @@ import {
 
 const BookAppointment = () => {
   const [selectedTherapist, setSelectedTherapist] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<'on-campus' | 'off-campus'>('on-campus');
   const [appointmentData, setAppointmentData] = useState({
     date: '',
     time: '',
@@ -29,7 +30,7 @@ const BookAppointment = () => {
     anonymous: true
   });
 
-  const therapists = [
+  const onCampusTherapists = [
     {
       id: '1',
       name: 'Dr. Priya Sharma',
@@ -39,21 +40,11 @@ const BookAppointment = () => {
       location: 'On Campus - Wellness Center',
       distance: '0.2 km',
       available: ['Mon', 'Wed', 'Fri'],
-      image: '👩‍⚕️'
+      image: '👩‍⚕️',
+      type: 'on-campus'
     },
     {
       id: '2',
-      name: 'Dr. Rajesh Kumar',
-      specialization: 'Stress Management',
-      rating: 4.7,
-      experience: '12 years',
-      location: 'Medical District',
-      distance: '1.5 km',
-      available: ['Tue', 'Thu', 'Sat'],
-      image: '👨‍⚕️'
-    },
-    {
-      id: '3',
       name: 'Dr. Kavya Menon',
       specialization: 'Relationship Counseling',
       rating: 4.9,
@@ -61,10 +52,11 @@ const BookAppointment = () => {
       location: 'Student Health Services',
       distance: '0.5 km',
       available: ['Mon', 'Tue', 'Thu'],
-      image: '👩‍⚕️'
+      image: '👩‍⚕️',
+      type: 'on-campus'
     },
     {
-      id: '4',
+      id: '3',
       name: 'Dr. Arjun Patel',
       specialization: 'Academic Stress',
       rating: 4.6,
@@ -72,7 +64,59 @@ const BookAppointment = () => {
       location: 'Psychology Department',
       distance: '0.8 km',
       available: ['Wed', 'Fri', 'Sat'],
-      image: '👨‍⚕️'
+      image: '👨‍⚕️',
+      type: 'on-campus'
+    }
+  ];
+
+  const offCampusTherapists = [
+    {
+      id: '4',
+      name: 'Dr. Rajesh Kumar',
+      specialization: 'Stress Management',
+      rating: 4.7,
+      experience: '12 years',
+      location: 'Medical District',
+      distance: '1.5 km',
+      available: ['Tue', 'Thu', 'Sat'],
+      image: '👨‍⚕️',
+      type: 'off-campus'
+    },
+    {
+      id: '5',
+      name: 'Dr. Anita Desai',
+      specialization: 'Trauma Counseling',
+      rating: 4.8,
+      experience: '15 years',
+      location: 'City Mental Health Center',
+      distance: '2.1 km',
+      available: ['Mon', 'Wed', 'Fri'],
+      image: '👩‍⚕️',
+      type: 'off-campus'
+    },
+    {
+      id: '6',
+      name: 'Dr. Vikram Singh',
+      specialization: 'Cognitive Behavioral Therapy',
+      rating: 4.9,
+      experience: '11 years',
+      location: 'Private Practice - Downtown',
+      distance: '3.2 km',
+      available: ['Tue', 'Thu', 'Sat', 'Sun'],
+      image: '👨‍⚕️',
+      type: 'off-campus'
+    },
+    {
+      id: '7',
+      name: 'Dr. Meera Joshi',
+      specialization: 'Family Therapy',
+      rating: 4.7,
+      experience: '9 years',
+      location: 'Community Wellness Hub',
+      distance: '2.8 km',
+      available: ['Mon', 'Wed', 'Fri', 'Sun'],
+      image: '👩‍⚕️',
+      type: 'off-campus'
     }
   ];
 
@@ -80,6 +124,15 @@ const BookAppointment = () => {
     '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
     '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'
   ];
+
+  const getCurrentTherapists = () => {
+    return activeTab === 'on-campus' ? onCampusTherapists : offCampusTherapists;
+  };
+
+  const getSelectedTherapistDetails = () => {
+    const allTherapists = [...onCampusTherapists, ...offCampusTherapists];
+    return allTherapists.find(t => t.id === selectedTherapist);
+  };
 
   const handleBooking = (e: React.FormEvent) => {
     e.preventDefault();
@@ -115,10 +168,40 @@ const BookAppointment = () => {
                     <CardDescription>
                       Choose from our network of qualified mental health professionals
                     </CardDescription>
+                    
+                    {/* Tab Navigation */}
+                    <div className="flex space-x-1 bg-muted/50 p-1 rounded-lg mt-4">
+                      <button
+                        onClick={() => {
+                          setActiveTab('on-campus');
+                          setSelectedTherapist(null);
+                        }}
+                        className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
+                          activeTab === 'on-campus'
+                            ? 'bg-primary text-primary-foreground shadow-sm'
+                            : 'text-muted-foreground hover:text-foreground'
+                        }`}
+                      >
+                        On Campus
+                      </button>
+                      <button
+                        onClick={() => {
+                          setActiveTab('off-campus');
+                          setSelectedTherapist(null);
+                        }}
+                        className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
+                          activeTab === 'off-campus'
+                            ? 'bg-primary text-primary-foreground shadow-sm'
+                            : 'text-muted-foreground hover:text-foreground'
+                        }`}
+                      >
+                        Off Campus
+                      </button>
+                    </div>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {therapists.map((therapist) => (
+                      {getCurrentTherapists().map((therapist) => (
                         <div
                           key={therapist.id}
                           className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
@@ -200,8 +283,11 @@ const BookAppointment = () => {
                       {selectedTherapist && (
                         <div className="p-4 bg-primary/5 rounded-lg">
                           <h4 className="font-semibold text-primary mb-1">Selected Therapist</h4>
-                          <p className="text-sm">
-                            {therapists.find(t => t.id === selectedTherapist)?.name}
+                          <p className="text-sm font-medium">
+                            {getSelectedTherapistDetails()?.name}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {getSelectedTherapistDetails()?.specialization} • {getSelectedTherapistDetails()?.type === 'on-campus' ? 'On Campus' : 'Off Campus'}
                           </p>
                         </div>
                       )}
