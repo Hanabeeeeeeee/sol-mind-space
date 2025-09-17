@@ -38,6 +38,14 @@ const ChatSol = () => {
   const generateBotResponse = (userMessage: string): string => {
     const lowerMessage = userMessage.toLowerCase();
     
+    // Crisis/Harm Detection
+    const crisisWords = ['kill myself', 'suicide', 'end my life', 'want to die', 'kill me', 'harm myself', 'cut myself'];
+    const hasCrisisWords = crisisWords.some(word => lowerMessage.includes(word));
+    
+    if (hasCrisisWords) {
+      return '🚨 I\'m very concerned about you right now. Please reach out for immediate help:\n\n📞 National Suicide Prevention Lifeline: 988\n📞 Crisis Text Line: Text HOME to 741741\n📞 India Suicide Prevention Helpline: 91-9820466726\n📞 AASRA Helpline: 91-22-27546669\n\nYou matter, and there are people who want to help you through this. Please don\'t face this alone. 💚';
+    }
+    
     if (lowerMessage.includes('sad') || lowerMessage.includes('depressed')) {
       return 'I hear that you\'re feeling sad, and I want you to know that your feelings are valid. It takes courage to share how you\'re feeling. Would you like to talk about what\'s been weighing on your mind? Sometimes sharing can help lighten the load. 💙';
     }

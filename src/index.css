@@ -8,31 +8,31 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* CampusCare Color Palette - Pastels for calming mental health experience */
-    --background: 330 40% 98%;
-    --foreground: 290 30% 15%;
+    /* CampusCare Color Palette - Pastel Mental Health Theme */
+    --background: 335 60% 97%;
+    --foreground: 295 40% 20%;
 
-    --card: 330 50% 96%;
-    --card-foreground: 290 30% 20%;
+    --card: 335 50% 95%;
+    --card-foreground: 295 35% 25%;
 
-    --popover: 330 50% 98%;
-    --popover-foreground: 290 30% 15%;
+    --popover: 335 50% 97%;
+    --popover-foreground: 295 40% 20%;
 
-    /* Primary: Strong Pink Lavender #E099BC */
+    /* Primary: Dusty Rose #E099BC - Main brand color */
     --primary: 340 55% 73%;
     --primary-foreground: 340 60% 98%;
     
-    /* Secondary: Soft Pink Lilac #F5D1E2 */
+    /* Secondary: Pale Pink #F5D1E2 - Soft interactions */
     --secondary: 335 70% 90%;
-    --secondary-foreground: 320 40% 30%;
+    --secondary-foreground: 295 40% 30%;
 
-    /* Muted: Very Pale Pink */
-    --muted: 340 65% 95%;
-    --muted-foreground: 325 35% 50%;
+    /* Muted: Very Soft Lilac */
+    --muted: 330 45% 93%;
+    --muted-foreground: 310 30% 55%;
 
-    /* Accent: Deep Rose Pink #D4A6C5 */
+    /* Accent: Lilac #D4A6C5 - Highlights */
     --accent: 320 40% 75%;
-    --accent-foreground: 320 50% 25%;
+    --accent-foreground: 295 50% 25%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 330 40% 98%;
@@ -43,17 +43,20 @@ All colors MUST be HSL.
 
     --radius: 1rem;
     
-    /* CampusCare Custom Colors - Pink Focused #D4A6C5, #E099BC, #F5D1E2 */
+    /* CampusCare Custom Pastel Colors - Hexcodes: #D4A6C5, #926D97, #461C4C, #9F61B0, #F5D1E2, #E099BC */
     --plum: 315 30% 60%; /* #926D97 */
     --deep-purple: 295 45% 30%; /* #461C4C */
     --lilac: 320 40% 75%; /* #D4A6C5 */
+    --lavender: 290 45% 53%; /* #9F61B0 */
     --pale-pink: 335 70% 90%; /* #F5D1E2 */
     --dusty-rose: 340 55% 73%; /* #E099BC */
     
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
-    --gradient-calm: linear-gradient(180deg, hsl(var(--pale-pink)), hsl(var(--lilac)));
-    --gradient-bubble: linear-gradient(135deg, hsl(var(--lilac) / 0.3), hsl(var(--dusty-rose) / 0.2));
+    /* Pastel Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--dusty-rose)), hsl(var(--lilac)));
+    --gradient-calm: linear-gradient(180deg, hsl(var(--pale-pink)), hsl(var(--background)));
+    --gradient-bubble: linear-gradient(135deg, hsl(var(--lilac) / 0.4), hsl(var(--dusty-rose) / 0.3));
+    --gradient-therapist: linear-gradient(135deg, hsl(var(--lavender)), hsl(var(--plum)));
+    --gradient-institution: linear-gradient(135deg, hsl(var(--deep-purple)), hsl(var(--lavender)));
     
     /* Shadows */
     --shadow-soft: 0 4px 20px hsl(var(--primary) / 0.1);
@@ -136,11 +139,11 @@ All colors MUST be HSL.
 @layer components {
   /* Floating Bubbles Animation */
   .floating-bubble {
-    position: absolute;
+    position: fixed;
     border-radius: 50%;
     background: var(--gradient-bubble);
-    opacity: 0.6;
-    animation: float 20s ease-in-out infinite;
+    opacity: 0;
+    animation: float 25s linear infinite;
     pointer-events: none;
     z-index: 0;
   }
@@ -266,20 +269,24 @@ All colors MUST be HSL.
 
 /* Keyframes */
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-    opacity: 0.6;
+  0% {
+    transform: translateY(100vh) rotate(0deg) scale(0);
+    opacity: 0;
   }
-  25% {
-    transform: translateY(-20px) rotate(5deg);
-    opacity: 0.8;
+  10% {
+    opacity: 0.6;
+    transform: translateY(90vh) rotate(10deg) scale(1);
   }
   50% {
-    transform: translateY(-10px) rotate(-5deg);
-    opacity: 0.4;
+    opacity: 0.8;
+    transform: translateY(50vh) rotate(-10deg) scale(1.1);
   }
-  75% {
-    transform: translateY(-30px) rotate(3deg);
-    opacity: 0.7;
+  90% {
+    opacity: 0.4;
+    transform: translateY(10vh) rotate(5deg) scale(0.9);
+  }
+  100% {
+    transform: translateY(-10vh) rotate(0deg) scale(0);
+    opacity: 0;
   }
 }

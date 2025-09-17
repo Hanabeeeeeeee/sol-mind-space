@@ -3,141 +3,142 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingBubbles from '@/components/FloatingBubbles';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Calendar } from '@/components/ui/calendar';
 import { 
-  Calendar,
+  Calendar as CalendarIcon,
   Clock,
   MapPin,
-  Star,
   User,
+  Star,
   Phone,
   Mail,
-  CheckCircle
+  Award,
+  Heart,
+  Building2,
+  Navigation
 } from 'lucide-react';
 
+interface Therapist {
+  id: string;
+  name: string;
+  specialization: string;
+  experience: string;
+  rating: number;
+  location: string;
+  type: 'on-campus' | 'off-campus';
+  availability: string[];
+  fees: string;
+  languages: string[];
+}
+
 const BookAppointment = () => {
-  const [selectedTherapist, setSelectedTherapist] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'on-campus' | 'off-campus'>('on-campus');
-  const [appointmentData, setAppointmentData] = useState({
-    date: '',
-    time: '',
-    type: '',
-    notes: '',
-    anonymous: true
+  const [selectedTab, setSelectedTab] = useState('on-campus');
+  const [selectedTherapist, setSelectedTherapist] = useState<Therapist | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+  const [formData, setFormData] = useState({
+    preferredTime: '',
+    sessionType: '',
+    concerns: '',
+    urgency: '',
+    contact: ''
   });
 
-  const onCampusTherapists = [
+  const onCampusTherapists: Therapist[] = [
     {
       id: '1',
       name: 'Dr. Priya Sharma',
       specialization: 'Anxiety & Depression',
-      rating: 4.8,
       experience: '8 years',
-      location: 'On Campus - Wellness Center',
-      distance: '0.2 km',
-      available: ['Mon', 'Wed', 'Fri'],
-      image: '👩‍⚕️',
-      type: 'on-campus'
+      rating: 4.9,
+      location: 'Campus Wellness Center - Room 201',
+      type: 'on-campus',
+      availability: ['Monday', 'Wednesday', 'Friday'],
+      fees: 'Free for students',
+      languages: ['English', 'Hindi']
     },
     {
       id: '2',
-      name: 'Dr. Kavya Menon',
-      specialization: 'Relationship Counseling',
-      rating: 4.9,
-      experience: '6 years',
-      location: 'Student Health Services',
-      distance: '0.5 km',
-      available: ['Mon', 'Tue', 'Thu'],
-      image: '👩‍⚕️',
-      type: 'on-campus'
+      name: 'Dr. Rajesh Kumar',
+      specialization: 'Academic Stress & Relationships',
+      experience: '12 years',
+      rating: 4.8,
+      location: 'Student Services Building - 3rd Floor',
+      type: 'on-campus',
+      availability: ['Tuesday', 'Thursday', 'Saturday'],
+      fees: 'Free for students',
+      languages: ['English', 'Hindi', 'Bengali']
     },
     {
       id: '3',
-      name: 'Dr. Arjun Patel',
-      specialization: 'Academic Stress',
-      rating: 4.6,
+      name: 'Dr. Sneha Patel',
+      specialization: 'Trauma & PTSD',
       experience: '10 years',
-      location: 'Psychology Department',
-      distance: '0.8 km',
-      available: ['Wed', 'Fri', 'Sat'],
-      image: '👨‍⚕️',
-      type: 'on-campus'
+      rating: 4.7,
+      location: 'Health Center - Mental Health Wing',
+      type: 'on-campus',
+      availability: ['Monday', 'Tuesday', 'Thursday'],
+      fees: 'Free for students',
+      languages: ['English', 'Hindi', 'Gujarati']
     }
   ];
 
-  const offCampusTherapists = [
+  const offCampusTherapists: Therapist[] = [
     {
       id: '4',
-      name: 'Dr. Rajesh Kumar',
-      specialization: 'Stress Management',
-      rating: 4.7,
-      experience: '12 years',
-      location: 'Medical District',
-      distance: '1.5 km',
-      available: ['Tue', 'Thu', 'Sat'],
-      image: '👨‍⚕️',
-      type: 'off-campus'
+      name: 'Dr. Arjun Mehta',
+      specialization: 'CBT & Mindfulness Therapy',
+      experience: '15 years',
+      rating: 4.9,
+      location: 'Mind Wellness Clinic, Bandra West (2.3 km)',
+      type: 'off-campus',
+      availability: ['Monday', 'Wednesday', 'Friday', 'Saturday'],
+      fees: '₹1500 per session',
+      languages: ['English', 'Hindi', 'Marathi']
     },
     {
       id: '5',
-      name: 'Dr. Anita Desai',
-      specialization: 'Trauma Counseling',
+      name: 'Dr. Kavya Nair',
+      specialization: 'Eating Disorders & Body Image',
+      experience: '9 years',
       rating: 4.8,
-      experience: '15 years',
-      location: 'City Mental Health Center',
-      distance: '2.1 km',
-      available: ['Mon', 'Wed', 'Fri'],
-      image: '👩‍⚕️',
-      type: 'off-campus'
+      location: 'Healing Hearts Center, Andheri East (3.1 km)',
+      type: 'off-campus',
+      availability: ['Tuesday', 'Thursday', 'Sunday'],
+      fees: '₹1200 per session',
+      languages: ['English', 'Hindi', 'Malayalam']
     },
     {
       id: '6',
-      name: 'Dr. Vikram Singh',
-      specialization: 'Cognitive Behavioral Therapy',
-      rating: 4.9,
+      name: 'Dr. Rohit Singh',
+      specialization: 'Addiction & Substance Abuse',
       experience: '11 years',
-      location: 'Private Practice - Downtown',
-      distance: '3.2 km',
-      available: ['Tue', 'Thu', 'Sat', 'Sun'],
-      image: '👨‍⚕️',
-      type: 'off-campus'
-    },
-    {
-      id: '7',
-      name: 'Dr. Meera Joshi',
-      specialization: 'Family Therapy',
-      rating: 4.7,
-      experience: '9 years',
-      location: 'Community Wellness Hub',
-      distance: '2.8 km',
-      available: ['Mon', 'Wed', 'Fri', 'Sun'],
-      image: '👩‍⚕️',
-      type: 'off-campus'
+      rating: 4.6,
+      location: 'Serenity Clinic, Juhu (4.5 km)',
+      type: 'off-campus',
+      availability: ['Monday', 'Tuesday', 'Wednesday', 'Friday'],
+      fees: '₹1800 per session',
+      languages: ['English', 'Hindi', 'Punjabi']
     }
   ];
 
-  const timeSlots = [
-    '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
-    '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'
-  ];
+  const currentTherapists = selectedTab === 'on-campus' ? onCampusTherapists : offCampusTherapists;
 
-  const getCurrentTherapists = () => {
-    return activeTab === 'on-campus' ? onCampusTherapists : offCampusTherapists;
+  const handleFormChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const getSelectedTherapistDetails = () => {
-    const allTherapists = [...onCampusTherapists, ...offCampusTherapists];
-    return allTherapists.find(t => t.id === selectedTherapist);
-  };
-
-  const handleBooking = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Booking appointment:', { selectedTherapist, appointmentData });
-    // Show success message or redirect
+  const handleBookAppointment = () => {
+    if (!selectedTherapist || !selectedDate) {
+      alert('Please select a therapist and date');
+      return;
+    }
+    alert(`Appointment booked with ${selectedTherapist.name} on ${selectedDate.toDateString()}`);
   };
 
   return (
@@ -148,264 +149,294 @@ const BookAppointment = () => {
         <Header />
         
         <main className="flex-1 container mx-auto px-4 py-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="mb-8">
-              <h1 className="text-3xl font-bold mb-2">Book Your Appointment</h1>
-              <p className="text-muted-foreground">
-                Find and book sessions with qualified counselors and therapists
-              </p>
+          {/* Header */}
+          <div className="text-center mb-8">
+            <div className="flex items-center justify-center space-x-3 mb-4">
+              <CalendarIcon className="h-10 w-10 text-primary" />
+              <h1 className="text-4xl font-bold text-gradient-primary">Book Your Appointment</h1>
             </div>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Therapist Selection */}
-              <div>
-                <Card className="glass-card mb-6">
-                  <CardHeader>
-                    <CardTitle className="flex items-center space-x-2">
-                      <MapPin className="h-5 w-5 text-primary" />
-                      <span>Available Therapists</span>
-                    </CardTitle>
-                    <CardDescription>
-                      Choose from our network of qualified mental health professionals
-                    </CardDescription>
-                    
-                    {/* Tab Navigation */}
-                    <div className="flex space-x-1 bg-muted/50 p-1 rounded-lg mt-4">
-                      <button
-                        onClick={() => {
-                          setActiveTab('on-campus');
-                          setSelectedTherapist(null);
-                        }}
-                        className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
-                          activeTab === 'on-campus'
-                            ? 'bg-primary text-primary-foreground shadow-sm'
-                            : 'text-muted-foreground hover:text-foreground'
-                        }`}
-                      >
-                        On Campus
-                      </button>
-                      <button
-                        onClick={() => {
-                          setActiveTab('off-campus');
-                          setSelectedTherapist(null);
-                        }}
-                        className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
-                          activeTab === 'off-campus'
-                            ? 'bg-primary text-primary-foreground shadow-sm'
-                            : 'text-muted-foreground hover:text-foreground'
-                        }`}
-                      >
-                        Off Campus
-                      </button>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      {getCurrentTherapists().map((therapist) => (
-                        <div
-                          key={therapist.id}
-                          className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                            selectedTherapist === therapist.id
-                              ? 'border-primary bg-primary/5'
-                              : 'border-border hover:border-primary/50'
-                          }`}
-                          onClick={() => setSelectedTherapist(therapist.id)}
-                        >
-                          <div className="flex items-start space-x-4">
-                            <div className="text-3xl">{therapist.image}</div>
-                            <div className="flex-1">
-                              <div className="flex items-center justify-between mb-2">
-                                <h3 className="font-semibold">{therapist.name}</h3>
-                                <div className="flex items-center space-x-1">
-                                  <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                                  <span className="text-sm">{therapist.rating}</span>
-                                </div>
-                              </div>
-                              <p className="text-sm text-primary mb-1">{therapist.specialization}</p>
-                              <div className="text-xs text-muted-foreground space-y-1">
-                                <div className="flex items-center space-x-2">
-                                  <User className="h-3 w-3" />
-                                  <span>{therapist.experience} experience</span>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                  <MapPin className="h-3 w-3" />
-                                  <span>{therapist.location} • {therapist.distance}</span>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                  <Calendar className="h-3 w-3" />
-                                  <span>Available: {therapist.available.join(', ')}</span>
-                                </div>
-                              </div>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Connect with qualified therapists and counselors for confidential mental health support
+            </p>
+          </div>
+
+          <div className="max-w-7xl mx-auto">
+            {/* Therapist Selection */}
+            <Tabs value={selectedTab} onValueChange={setSelectedTab} className="mb-8">
+              <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto">
+                <TabsTrigger value="on-campus" className="flex items-center space-x-2">
+                  <Building2 className="h-4 w-4" />
+                  <span>On Campus</span>
+                </TabsTrigger>
+                <TabsTrigger value="off-campus" className="flex items-center space-x-2">
+                  <Navigation className="h-4 w-4" />
+                  <span>Off Campus</span>
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value={selectedTab} className="mt-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                  {currentTherapists.map((therapist) => (
+                    <Card 
+                      key={therapist.id} 
+                      className={`glass-card hover:shadow-floating transition-all duration-300 cursor-pointer ${
+                        selectedTherapist?.id === therapist.id ? 'ring-2 ring-primary shadow-glow' : ''
+                      }`}
+                      onClick={() => setSelectedTherapist(therapist)}
+                    >
+                      <CardHeader>
+                        <div className="flex items-center space-x-3 mb-3">
+                          <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center">
+                            <User className="h-8 w-8 text-primary-foreground" />
+                          </div>
+                          <div>
+                            <CardTitle className="text-lg">{therapist.name}</CardTitle>
+                            <div className="flex items-center space-x-1">
+                              <Star className="h-4 w-4 text-yellow-500 fill-current" />
+                              <span className="text-sm text-muted-foreground">{therapist.rating}</span>
                             </div>
-                            {selectedTherapist === therapist.id && (
-                              <CheckCircle className="h-6 w-6 text-primary" />
-                            )}
                           </div>
                         </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-                
-                {/* Booking Form - Moved from right column */}
-                <Card className="glass-card">
-                  <CardHeader>
-                    <CardTitle className="flex items-center space-x-2">
-                      <Calendar className="h-5 w-5 text-primary" />
-                      <span>Schedule Your Session</span>
-                    </CardTitle>
-                    <CardDescription>
-                      Select your preferred date, time, and session type
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <form onSubmit={handleBooking} className="space-y-6">
-                      {selectedTherapist && (
-                        <div className="p-4 bg-primary/5 rounded-lg">
-                          <h4 className="font-semibold text-primary mb-1">Selected Therapist</h4>
-                          <p className="text-sm font-medium">
-                            {getSelectedTherapistDetails()?.name}
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            {getSelectedTherapistDetails()?.specialization} • {getSelectedTherapistDetails()?.type === 'on-campus' ? 'On Campus' : 'Off Campus'}
-                          </p>
+                        
+                        <div className="space-y-2 text-sm">
+                          <div className="flex items-center space-x-2">
+                            <Heart className="h-4 w-4 text-primary" />
+                            <span>{therapist.specialization}</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Award className="h-4 w-4 text-primary" />
+                            <span>{therapist.experience} experience</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <MapPin className="h-4 w-4 text-primary" />
+                            <span className="text-xs">{therapist.location}</span>
+                          </div>
                         </div>
-                      )}
+                      </CardHeader>
                       
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="date">Preferred Date</Label>
-                          <Input
-                            id="date"
-                            type="date"
-                            value={appointmentData.date}
-                            onChange={(e) => setAppointmentData(prev => ({ 
-                              ...prev, 
-                              date: e.target.value 
-                            }))}
-                            min={new Date().toISOString().split('T')[0]}
-                            required
+                      <CardContent>
+                        <div className="space-y-3">
+                          <div>
+                            <span className="text-sm font-medium">Availability:</span>
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              {therapist.availability.map((day) => (
+                                <span key={day} className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+                                  {day}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <span className="text-sm font-medium">Languages:</span>
+                            <p className="text-sm text-muted-foreground">{therapist.languages.join(', ')}</p>
+                          </div>
+                          
+                          <div>
+                            <span className="text-sm font-medium">Fees:</span>
+                            <p className="text-sm text-muted-foreground font-semibold">{therapist.fees}</p>
+                          </div>
+                          
+                          <Button 
+                            className={`w-full ${selectedTherapist?.id === therapist.id ? 'btn-primary' : 'btn-secondary'}`}
+                            onClick={() => setSelectedTherapist(therapist)}
+                          >
+                            {selectedTherapist?.id === therapist.id ? 'Selected' : 'Select Therapist'}
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
+            </Tabs>
+
+            {/* Booking Form and Map */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Booking Form */}
+              <Card className="glass-card">
+                <CardHeader>
+                  <CardTitle className="flex items-center space-x-2">
+                    <CalendarIcon className="h-5 w-5 text-primary" />
+                    <span>Schedule Your Session</span>
+                  </CardTitle>
+                  <CardDescription>
+                    {selectedTherapist 
+                      ? `Booking with ${selectedTherapist.name}` 
+                      : 'Select a therapist to continue booking'
+                    }
+                  </CardDescription>
+                </CardHeader>
+                
+                <CardContent className="space-y-6">
+                  {selectedTherapist && (
+                    <>
+                      {/* Calendar */}
+                      <div>
+                        <Label className="text-base font-medium">Select Date</Label>
+                        <div className="mt-2">
+                          <Calendar
+                            mode="single"
+                            selected={selectedDate}
+                            onSelect={setSelectedDate}
+                            disabled={(date) => date < new Date()}
+                            className="rounded-md border glass-card"
                           />
                         </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="time">Preferred Time</Label>
-                          <Select
-                            value={appointmentData.time}
-                            onValueChange={(value) => setAppointmentData(prev => ({ 
-                              ...prev, 
-                              time: value 
-                            }))}
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select time" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {timeSlots.map((time) => (
-                                <SelectItem key={time} value={time}>
-                                  {time}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
                       </div>
-                      
-                      <div className="space-y-2">
-                        <Label htmlFor="type">Session Type</Label>
-                        <Select
-                          value={appointmentData.type}
-                          onValueChange={(value) => setAppointmentData(prev => ({ 
-                            ...prev, 
-                            type: value 
-                          }))}
-                        >
+
+                      {/* Time Selection */}
+                      <div>
+                        <Label htmlFor="time">Preferred Time</Label>
+                        <Select value={formData.preferredTime} onValueChange={(value) => handleFormChange('preferredTime', value)}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select time slot" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="morning">Morning (9:00 AM - 12:00 PM)</SelectItem>
+                            <SelectItem value="afternoon">Afternoon (12:00 PM - 4:00 PM)</SelectItem>
+                            <SelectItem value="evening">Evening (4:00 PM - 7:00 PM)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {/* Session Type */}
+                      <div>
+                        <Label htmlFor="sessionType">Session Type</Label>
+                        <Select value={formData.sessionType} onValueChange={(value) => handleFormChange('sessionType', value)}>
                           <SelectTrigger>
                             <SelectValue placeholder="Select session type" />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="individual">Individual Counseling</SelectItem>
                             <SelectItem value="group">Group Therapy</SelectItem>
-                            <SelectItem value="couple">Couple Counseling</SelectItem>
-                            <SelectItem value="assessment">Initial Assessment</SelectItem>
+                            <SelectItem value="couples">Couples Counseling</SelectItem>
+                            <SelectItem value="family">Family Therapy</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
-                      
-                      <div className="space-y-2">
-                        <Label htmlFor="notes">Additional Notes (Optional)</Label>
+
+                      {/* Concerns */}
+                      <div>
+                        <Label htmlFor="concerns">What would you like to discuss? (Optional)</Label>
                         <Textarea
-                          id="notes"
-                          placeholder="Share any specific concerns or questions..."
-                          value={appointmentData.notes}
-                          onChange={(e) => setAppointmentData(prev => ({ 
-                            ...prev, 
-                            notes: e.target.value 
-                          }))}
-                          rows={3}
+                          id="concerns"
+                          placeholder="Share your concerns or what you'd like to work on..."
+                          value={formData.concerns}
+                          onChange={(e) => handleFormChange('concerns', e.target.value)}
+                          className="mt-1"
                         />
                       </div>
-                      
-                      <div className="p-4 bg-muted/30 rounded-lg">
-                        <div className="flex items-center space-x-2 mb-2">
-                          <CheckCircle className="h-4 w-4 text-primary" />
-                          <span className="text-sm font-medium">Anonymous Booking</span>
-                        </div>
-                        <p className="text-xs text-muted-foreground">
-                          Your identity remains confidential. The therapist will only see 
-                          your session details and anonymous contact information.
-                        </p>
+
+                      {/* Urgency */}
+                      <div>
+                        <Label htmlFor="urgency">Priority Level</Label>
+                        <Select value={formData.urgency} onValueChange={(value) => handleFormChange('urgency', value)}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select priority level" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="low">Low - General support</SelectItem>
+                            <SelectItem value="medium">Medium - Need guidance soon</SelectItem>
+                            <SelectItem value="high">High - Urgent support needed</SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
-                      
+
+                      {/* Contact */}
+                      <div>
+                        <Label htmlFor="contact">Contact Method</Label>
+                        <Select value={formData.contact} onValueChange={(value) => handleFormChange('contact', value)}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="How should we contact you?" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="email">Email</SelectItem>
+                            <SelectItem value="phone">Phone Call</SelectItem>
+                            <SelectItem value="sms">SMS</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
                       <Button 
-                        type="submit" 
+                        onClick={handleBookAppointment}
                         className="w-full btn-primary"
-                        disabled={!selectedTherapist}
+                        disabled={!selectedDate}
                       >
-                        Book Appointment
+                        <CalendarIcon className="h-4 w-4 mr-2" />
+                        Confirm Appointment
                       </Button>
-                      
-                      <div className="text-center text-xs text-muted-foreground">
-                        <p>Need help? Contact us at:</p>
-                        <div className="flex justify-center space-x-4 mt-2">
-                          <div className="flex items-center space-x-1">
-                            <Phone className="h-3 w-3" />
-                            <span>+91-9152987821</span>
+                    </>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Map/Location Info */}
+              <Card className="glass-card">
+                <CardHeader>
+                  <CardTitle>Location & Contact</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {selectedTherapist ? (
+                    <div className="space-y-6">
+                      {/* Location Details */}
+                      <div>
+                        <h4 className="font-semibold mb-3">{selectedTherapist.name}</h4>
+                        <div className="space-y-3 text-sm">
+                          <div className="flex items-start space-x-2">
+                            <MapPin className="h-4 w-4 text-primary mt-0.5" />
+                            <span>{selectedTherapist.location}</span>
                           </div>
-                          <div className="flex items-center space-x-1">
-                            <Mail className="h-3 w-3" />
-                            <span>help@campuscare.edu</span>
+                          <div className="flex items-center space-x-2">
+                            <Phone className="h-4 w-4 text-primary" />
+                            <span>+91-22-2659-{selectedTherapist.type === 'on-campus' ? '7777' : '8888'}</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Mail className="h-4 w-4 text-primary" />
+                            <span>{selectedTherapist.name.toLowerCase().replace(/\s+/g, '.')}@campuscare.com</span>
                           </div>
                         </div>
                       </div>
-                    </form>
-                  </CardContent>
-                </Card>
-              </div>
-              
-              {/* Map Placeholder - Moved from left column */}
-              <div>
-                <Card className="glass-card">
-                  <CardHeader>
-                    <CardTitle>Nearby Locations</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="h-64 bg-muted/50 rounded-lg flex items-center justify-center">
-                      <div className="text-center">
-                        <MapPin className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
-                        <p className="text-muted-foreground">Interactive map coming soon</p>
-                        <p className="text-sm text-muted-foreground">
-                          View therapist locations and plan your visit
-                        </p>
+
+                      {/* Map Placeholder */}
+                      <div className="h-64 bg-muted/30 rounded-lg flex items-center justify-center">
+                        <div className="text-center">
+                          <MapPin className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
+                          <p className="text-muted-foreground">Interactive map</p>
+                          <p className="text-sm text-muted-foreground">
+                            {selectedTherapist.type === 'on-campus' 
+                              ? 'Campus location map' 
+                              : 'Navigate to clinic location'
+                            }
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Additional Info */}
+                      <div className="p-4 bg-primary/5 rounded-lg">
+                        <h5 className="font-semibold mb-2">Before Your Session</h5>
+                        <ul className="text-sm space-y-1 text-muted-foreground">
+                          <li>• Arrive 10 minutes early</li>
+                          <li>• Bring a valid student ID</li>
+                          <li>• Think about what you'd like to discuss</li>
+                          <li>• All sessions are completely confidential</li>
+                        </ul>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              </div>
+                  ) : (
+                    <div className="h-64 bg-muted/30 rounded-lg flex items-center justify-center">
+                      <div className="text-center">
+                        <MapPin className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
+                        <p className="text-muted-foreground">Select a therapist to view location</p>
+                      </div>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
             </div>
           </div>
         </main>
-        
+
         <Footer />
       </div>
     </div>
