@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingBubbles from '@/components/FloatingBubbles';
@@ -20,13 +20,6 @@ import {
 
 const Dashboard = () => {
   const [mood, setMood] = useState<number | null>(null);
-  const [userName, setUserName] = useState('Student');
-  const [moodHistory, setMoodHistory] = useState<number[]>([]);
-  const [progress, setProgress] = useState({
-    weeklyMood: 72,
-    attendance: 85,
-    resourcesCompleted: 60
-  });
   
   const moodOptions = [
     { value: 1, emoji: '😞', label: 'Very Sad' },
@@ -76,36 +69,6 @@ const Dashboard = () => {
     }
   ];
 
-  useEffect(() => {
-    // Load user data from localStorage
-    const userData = localStorage.getItem('campusCareUser');
-    if (userData) {
-      const user = JSON.parse(userData);
-      setUserName(user.name.split(' ')[0]); // First name only
-    }
-    
-    // Load mood history
-    const savedMoods = localStorage.getItem('moodHistory');
-    if (savedMoods) {
-      setMoodHistory(JSON.parse(savedMoods));
-    }
-  }, []);
-
-  const handleMoodSelect = (selectedMood: number) => {
-    setMood(selectedMood);
-    const newMoodHistory = [...moodHistory, selectedMood];
-    setMoodHistory(newMoodHistory);
-    localStorage.setItem('moodHistory', JSON.stringify(newMoodHistory));
-    
-    // Update progress based on mood entries
-    const avgMood = newMoodHistory.reduce((a, b) => a + b, 0) / newMoodHistory.length;
-    setProgress(prev => ({
-      ...prev,
-      weeklyMood: Math.round((avgMood / 5) * 100),
-      resourcesCompleted: prev.resourcesCompleted + 2 // Simulate progress
-    }));
-  };
-
   return (
     <div className="min-h-screen bg-gradient-calm relative overflow-hidden">
       <FloatingBubbles />
@@ -116,7 +79,7 @@ const Dashboard = () => {
         <main className="flex-1 container mx-auto px-4 py-8">
           {/* Welcome Section */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-2">Welcome back, {userName}!</h1>
+            <h1 className="text-3xl font-bold mb-2">Welcome back, Arjun!</h1>
             <p className="text-muted-foreground">Let's take care of your mental wellbeing today.</p>
           </div>
           
@@ -214,7 +177,7 @@ const Dashboard = () => {
                     {moodOptions.map((option) => (
                       <button
                         key={option.value}
-                        onClick={() => handleMoodSelect(option.value)}
+                        onClick={() => setMood(option.value)}
                         className={`p-3 rounded-lg text-center transition-all ${
                           mood === option.value
                             ? 'bg-primary text-primary-foreground shadow-glow'
@@ -246,25 +209,25 @@ const Dashboard = () => {
                   <div>
                     <div className="flex justify-between text-sm mb-2">
                       <span>Weekly Mood Average</span>
-                      <span>{(progress.weeklyMood / 10).toFixed(1)}/10</span>
+                      <span>7.2/10</span>
                     </div>
-                    <Progress value={progress.weeklyMood} className="h-2" />
+                    <Progress value={72} className="h-2" />
                   </div>
                   
                   <div>
                     <div className="flex justify-between text-sm mb-2">
                       <span>Session Attendance</span>
-                      <span>{progress.attendance}%</span>
+                      <span>85%</span>
                     </div>
-                    <Progress value={progress.attendance} className="h-2" />
+                    <Progress value={85} className="h-2" />
                   </div>
                   
                   <div>
                     <div className="flex justify-between text-sm mb-2">
                       <span>Resources Completed</span>
-                      <span>{Math.min(progress.resourcesCompleted, 100)}%</span>
+                      <span>12/20</span>
                     </div>
-                    <Progress value={Math.min(progress.resourcesCompleted, 100)} className="h-2" />
+                    <Progress value={60} className="h-2" />
                   </div>
                   
                   <div className="pt-2 text-center">

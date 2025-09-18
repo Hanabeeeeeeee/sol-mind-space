@@ -75,7 +75,7 @@ const Landing = () => {
                   <li>• Resource distribution</li>
                 </ul>
                 <Link to="/signup/institution" className="block">
-                  <Button className="w-full" style={{background: 'var(--gradient-institution)', color: 'hsl(var(--primary-foreground))'}}>
+                  <Button className="w-full btn-secondary">
                     Register Institution
                   </Button>
                 </Link>
@@ -102,7 +102,7 @@ const Landing = () => {
                   <li>• Professional network</li>
                 </ul>
                 <Link to="/signup/therapist" className="block">
-                  <Button className="w-full" style={{background: 'var(--gradient-therapist)', color: 'hsl(var(--primary-foreground))'}}>
+                  <Button className="w-full" variant="outline">
                     Join as Therapist
                   </Button>
                 </Link>

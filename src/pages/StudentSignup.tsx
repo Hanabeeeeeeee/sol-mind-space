@@ -21,13 +21,7 @@ const StudentSignup = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Store user data in localStorage (mock implementation)
-    localStorage.setItem('campusCareUser', JSON.stringify({
-      name: formData.fullName,
-      email: formData.email,
-      institution: formData.institution,
-      studentId: formData.studentId
-    }));
+    // Mock signup - in real app would validate and call API
     console.log('Student signup:', formData);
     navigate('/dashboard');
   };
