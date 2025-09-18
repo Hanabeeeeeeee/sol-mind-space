@@ -139,38 +139,31 @@ All colors MUST be HSL.
     position: absolute;
     border-radius: 50%;
     background: var(--gradient-bubble);
-    opacity: 0.6;
-    animation: float 20s ease-in-out infinite;
+    opacity: 0.2;
+    animation: floatUp linear infinite;
     pointer-events: none;
     z-index: 0;
-  }
-  
-  .floating-bubble:nth-child(1) {
-    width: 80px;
-    height: 80px;
-    left: 10%;
-    animation-delay: 0s;
-  }
-  
-  .floating-bubble:nth-child(2) {
-    width: 120px;
-    height: 120px;
-    left: 20%;
-    animation-delay: 2s;
-  }
-  
-  .floating-bubble:nth-child(3) {
-    width: 100px;
-    height: 100px;
-    left: 70%;
-    animation-delay: 4s;
-  }
-  
-  .floating-bubble:nth-child(4) {
+    bottom: -150px;
     width: 60px;
     height: 60px;
-    left: 80%;
-    animation-delay: 6s;
+  }
+  
+  .floating-bubble:nth-child(odd) {
+    width: 80px;
+    height: 80px;
+    opacity: 0.15;
+  }
+  
+  .floating-bubble:nth-child(3n) {
+    width: 100px;
+    height: 100px;
+    opacity: 0.1;
+  }
+  
+  .floating-bubble:nth-child(5n) {
+    width: 120px;
+    height: 120px;
+    opacity: 0.08;
   }
   
   /* Glass Card Effect */
@@ -281,5 +274,22 @@ All colors MUST be HSL.
   75% {
     transform: translateY(-30px) rotate(3deg);
     opacity: 0.7;
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.2;
+  }
+  90% {
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+    opacity: 0;
   }
 }

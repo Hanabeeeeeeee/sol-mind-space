@@ -81,7 +81,7 @@ const Header = () => {
           
           {/* User Menu */}
           <div className="flex items-center space-x-4">
-            <span className="text-sm text-muted-foreground">Welcome, Arjun</span>
+            <span className="text-sm text-muted-foreground">Welcome, {localStorage.getItem('userName') || 'Arjun'}</span>
             <Button variant="ghost" size="sm">
               <LogOut className="h-4 w-4" />
             </Button>

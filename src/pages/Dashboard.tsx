@@ -243,26 +243,6 @@ const Dashboard = () => {
                 </CardContent>
               </Card>
               
-              {/* Quick Actions */}
-              <Card className="glass-card">
-                <CardHeader>
-                  <CardTitle>Quick Actions</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <Button className="w-full btn-secondary" size="sm">
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    Chat with Sol
-                  </Button>
-                  <Button className="w-full btn-secondary" size="sm">
-                    <Users className="h-4 w-4 mr-2" />
-                    Join Peer Group
-                  </Button>
-                  <Button className="w-full btn-secondary" size="sm">
-                    <BookOpen className="h-4 w-4 mr-2" />
-                    Browse Resources
-                  </Button>
-                </CardContent>
-              </Card>
             </div>
           </div>
         </main>
