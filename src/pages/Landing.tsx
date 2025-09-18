@@ -102,7 +102,7 @@ const Landing = () => {
                   <li>• Professional network</li>
                 </ul>
                 <Link to="/signup/therapist" className="block">
-                  <Button className="w-full" variant="outline">
+                  <Button className="w-full btn-primary">
                     Join as Therapist
                   </Button>
                 </Link>

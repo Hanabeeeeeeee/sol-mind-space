@@ -20,6 +20,8 @@ import {
 
 const Dashboard = () => {
   const [mood, setMood] = useState<number | null>(null);
+  const [moodHistory, setMoodHistory] = useState<number[]>([]);
+  const userName = localStorage.getItem('userName') || 'Arjun';
   
   const moodOptions = [
     { value: 1, emoji: '😞', label: 'Very Sad' },
@@ -79,7 +81,7 @@ const Dashboard = () => {
         <main className="flex-1 container mx-auto px-4 py-8">
           {/* Welcome Section */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-2">Welcome back, Arjun!</h1>
+            <h1 className="text-3xl font-bold mb-2">Welcome back, {userName}!</h1>
             <p className="text-muted-foreground">Let's take care of your mental wellbeing today.</p>
           </div>
           
@@ -177,7 +179,10 @@ const Dashboard = () => {
                     {moodOptions.map((option) => (
                       <button
                         key={option.value}
-                        onClick={() => setMood(option.value)}
+                        onClick={() => {
+                          setMood(option.value);
+                          setMoodHistory(prev => [...prev, option.value].slice(-7)); // Keep last 7 moods
+                        }}
                         className={`p-3 rounded-lg text-center transition-all ${
                           mood === option.value
                             ? 'bg-primary text-primary-foreground shadow-glow'
@@ -209,9 +214,9 @@ const Dashboard = () => {
                   <div>
                     <div className="flex justify-between text-sm mb-2">
                       <span>Weekly Mood Average</span>
-                      <span>7.2/10</span>
+                      <span>{moodHistory.length > 0 ? `${((moodHistory.reduce((a, b) => a + b, 0) / moodHistory.length) * 2).toFixed(1)}/10` : '7.2/10'}</span>
                     </div>
-                    <Progress value={72} className="h-2" />
+                    <Progress value={moodHistory.length > 0 ? (moodHistory.reduce((a, b) => a + b, 0) / moodHistory.length) * 20 : 72} className="h-2" />
                   </div>
                   
                   <div>
