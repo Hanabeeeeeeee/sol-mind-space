@@ -1,11 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import FloatingBubbles from '@/components/FloatingBubbles';
 import { Heart, GraduationCap, Building, UserCheck, Users, BookOpen } from 'lucide-react';
 
 const Landing = () => {
+  const navigate = useNavigate();
+  
   return (
     <div className="min-h-screen bg-gradient-calm relative overflow-hidden">
       <FloatingBubbles />
@@ -74,11 +76,16 @@ const Landing = () => {
                   <li>• Crisis intervention tools</li>
                   <li>• Resource distribution</li>
                 </ul>
-                <Link to="/signup/institution" className="block">
-                  <Button className="w-full btn-secondary">
-                    Register Institution
-                  </Button>
-                </Link>
+                <Button 
+                  className="w-full btn-primary"
+                  onClick={() => {
+                    localStorage.setItem('userName', 'University Wellness Center');
+                    localStorage.setItem('userRole', 'institute');
+                    navigate('/dashboard/institute');
+                  }}
+                >
+                  Register Institution
+                </Button>
               </CardContent>
             </Card>
             
@@ -101,11 +108,16 @@ const Landing = () => {
                   <li>• Resource sharing</li>
                   <li>• Professional network</li>
                 </ul>
-                <Link to="/signup/therapist" className="block">
-                  <Button className="w-full btn-primary">
-                    Join as Therapist
-                  </Button>
-                </Link>
+                <Button 
+                  className="w-full btn-primary"
+                  onClick={() => {
+                    localStorage.setItem('userName', 'Dr. Therapist');
+                    localStorage.setItem('userRole', 'therapist');
+                    navigate('/dashboard/therapist');
+                  }}
+                >
+                  Join as Therapist
+                </Button>
               </CardContent>
             </Card>
           </div>
