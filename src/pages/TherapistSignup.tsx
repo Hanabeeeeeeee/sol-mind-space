@@ -22,6 +22,9 @@ const TherapistSignup = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Store user's name and role in localStorage for dashboard
+    localStorage.setItem('userName', formData.fullName);
+    localStorage.setItem('userRole', 'therapist');
     // Mock signup - in real app would validate and call API
     console.log('Therapist signup:', formData);
     navigate('/login');

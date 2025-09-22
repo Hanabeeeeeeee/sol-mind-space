@@ -21,6 +21,8 @@ const StudentSignup = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Store user's name in localStorage for dashboard
+    localStorage.setItem('userName', formData.fullName);
     // Mock signup - in real app would validate and call API
     console.log('Student signup:', formData);
     navigate('/login');
