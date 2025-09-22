@@ -7,6 +7,7 @@ import Landing from "./pages/Landing";
 import StudentSignup from "./pages/StudentSignup";
 import TherapistSignup from "./pages/TherapistSignup";
 import InstitutionSignup from "./pages/InstitutionSignup";
+import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
 import BookAppointment from "./pages/BookAppointment";
 import ChatSol from "./pages/ChatSol";
@@ -25,6 +26,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<SignIn />} />
           <Route path="/signup/student" element={<StudentSignup />} />
           <Route path="/signup/therapist" element={<TherapistSignup />} />
           <Route path="/signup/institution" element={<InstitutionSignup />} />
