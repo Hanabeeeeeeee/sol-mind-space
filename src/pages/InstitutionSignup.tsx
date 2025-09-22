@@ -23,12 +23,9 @@ const InstitutionSignup = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Store institution's name and role in localStorage for dashboard
-    localStorage.setItem('userName', formData.institutionName);
-    localStorage.setItem('userRole', 'institution');
     // Mock signup - in real app would validate and call API
     console.log('Institution signup:', formData);
-    navigate('/dashboard');
+    navigate('/login');
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
